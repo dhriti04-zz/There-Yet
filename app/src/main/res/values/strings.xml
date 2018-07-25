@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">There Yet?</string>
+    <string name="openString">Open</string>
+    <string name="closeString">Close</string>
 </resources>
