@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnSignup = (Button) findViewById(R.id.btnSignup);
         mAuth = FirebaseAuth.getInstance();
+
 
         if (mAuth.getCurrentUser() != null) {
             Toast.makeText(getApplicationContext(), "Welcome back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, DetailsActivity.class));
                                     finish();
                                 }
                             }
