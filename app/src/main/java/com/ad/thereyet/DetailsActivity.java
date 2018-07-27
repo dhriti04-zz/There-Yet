@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,8 +27,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Random;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -42,6 +46,8 @@ public class DetailsActivity extends AppCompatActivity {
     private StorageReference stoRef;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    Bitmap bitmap = null;
+
 
 
     @Override
@@ -89,38 +95,61 @@ public class DetailsActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
 
 //                uri = data.getData();
-                Bitmap bitmap;
                 if(data.getData()==null){
-                    bitmap = (Bitmap)data.getExtras().get("data");
+                    bitmap = (Bitmap) data.getExtras().get("data");
+                    uri = getImageUri(bitmap);
                     ivImage.setImageBitmap(bitmap);
 
-                    uri = getImageUri(this,bitmap);
                 }else{
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
                         ivImage.setImageBitmap(bitmap);
-                        uri = getImageUri(this,bitmap);
+                        uri = getImageUri(bitmap);
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+//                uri = getImageUri(bitmap);
 
             }
         }
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
+    public Uri getImageUri(Bitmap mBitmap) {
+        Uri uri = null;
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            // Calculate inSampleSize
+//            options.inSampleSize = calculateInSampleSize(options, 100, 100);
 
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            Bitmap newBitmap = Bitmap.createScaledBitmap(mBitmap, 200, 200,
+                    true);
+            File file = new File(this.getFilesDir(), "Image"
+                    + new Random().nextInt() + ".jpeg");
+            FileOutputStream out = this.openFileOutput(file.getName(),
+                    Context.MODE_PRIVATE);
+            newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+            //get absolute path
+            String realPath = file.getAbsolutePath();
+            File f = new File(realPath);
+            uri = Uri.fromFile(f);
+
+        } catch (Exception e) {
+            Log.e("Your Error Message", e.getMessage());
+        }
+        return uri;
+
+    }
 
     private void writeNewUser(String username, String email, String Fname, String Lname) {
         User user = new User(username, email, Fname, Lname);
-        mDatabase.child("users").child(username).setValue(user);
+        String uid = mAuth.getCurrentUser().getUid();
+        mDatabase.child("Users").child(uid).setValue(user);
 
         filePath = stoRef.child(username).child("Photo");
         filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -129,7 +158,6 @@ public class DetailsActivity extends AppCompatActivity {
                 Toast.makeText(DetailsActivity.this, "Uploading file...", Toast.LENGTH_LONG);
                 startActivity(new Intent(DetailsActivity.this, MainActivity.class));
                 finish();
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -17,15 +18,19 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private DatabaseReference mDatabase;
     TextView tvNav;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
         tvNav = (TextView) findViewById(R.id.navHeader);
-//        tvNav.setText("Hi " + mDatabase.child("users").getKey());
+        String uid = mAuth.getCurrentUser().getUid();
+        tvNav.setText("Hi " + mDatabase.child("Users").child(uid));
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.openString, R.string.closeString);

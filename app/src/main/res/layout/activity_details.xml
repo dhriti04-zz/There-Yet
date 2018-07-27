@@ -13,8 +13,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="39dp"
-        android:background="@drawable/background_gradient"
+        android:background="@drawable/buttons"
         android:text="Done"
+        android:textColor="@color/colorAccent"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="486dp" />
 
@@ -57,14 +58,13 @@
 
     <ImageView
         android:id="@+id/ivDP"
-        android:layout_width="108dp"
-        android:layout_height="100dp"
+        android:layout_width="96dp"
+        android:layout_height="88dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/Lastname"
-        android:layout_marginBottom="177dp"
-        android:background="@android:color/black"
+        android:layout_marginBottom="170dp"
         android:scaleType="fitXY"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@drawable/ic_profile" />
 
     <Button
         android:id="@+id/BtnProfImage"
@@ -73,8 +73,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="199dp"
-        android:layout_marginEnd="22dp"
-        android:background="@android:color/darker_gray"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/edit_texts"
         android:text="Add profile picture"
         android:textAllCaps="false" />
 
@@ -87,8 +87,7 @@
         android:layout_marginStart="49dp"
         android:layout_marginTop="72dp"
         android:text="Username"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/etUsername"

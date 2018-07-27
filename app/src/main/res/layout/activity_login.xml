@@ -37,8 +37,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingLeft="5dp"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp" />
+        android:textColor="#0a0a0a"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -50,31 +50,32 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:paddingLeft="5dp"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="103dp"
+        android:layout_width="114dp"
         android:layout_height="36dp"
         android:layout_alignStart="@+id/tvPassword"
         android:layout_alignTop="@+id/btnSignup"
-        android:background="@drawable/background_gradient"
+        android:background="@drawable/buttons"
+        android:elevation="24dp"
         android:text="Login"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnSignup"
-        android:layout_width="99dp"
+        android:layout_width="107dp"
         android:layout_height="37dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="103dp"
         android:layout_marginEnd="54dp"
-        android:background="@drawable/background_gradient"
+        android:background="@drawable/buttons"
         android:text="Sign up"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp" />
 
     <ImageView
