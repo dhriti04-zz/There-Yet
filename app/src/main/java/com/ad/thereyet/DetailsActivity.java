@@ -150,6 +150,8 @@ public class DetailsActivity extends AppCompatActivity {
         User user = new User(username, email, Fname, Lname);
         String uid = mAuth.getCurrentUser().getUid();
         mDatabase.child("Users").child(uid).setValue(user);
+        mDatabase.child("Username").child(username).setValue("");
+        
 
         filePath = stoRef.child(username).child("Photo");
         filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

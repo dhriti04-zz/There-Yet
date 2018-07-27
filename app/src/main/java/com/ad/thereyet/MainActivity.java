@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         tvNav = (TextView) findViewById(R.id.navHeader);
         String uid = mAuth.getCurrentUser().getUid();
-        tvNav.setText("Hi " + mDatabase.child("Users").child(uid));
+//        tvNav.setText("Hi " + mDatabase.child("Users").child(uid));
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.openString, R.string.closeString);
