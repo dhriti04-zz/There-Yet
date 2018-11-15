@@ -35,11 +35,11 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-//        if (mAuth.getCurrentUser() != null) {
-//            Toast.makeText(getApplicationContext(), "Welcome back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            finish();
-//        }
+        if (mAuth.getCurrentUser() != null) {
+            Toast.makeText(getApplicationContext(), "Welcome back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,9 @@
 package com.ad.thereyet;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -8,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.ad.thereyet.Fragments.MainFragment;
+import com.ad.thereyet.Fragments.MapFragment;
+import com.ad.thereyet.Fragments.ProfileFragment;
+import com.ad.thereyet.Fragments.SettingsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
     TextView tvNav;
     private FirebaseAuth mAuth;
 
+    MainFragment mainFragment;
+    MapFragment mapFragment;
+    ProfileFragment profileFragment;
+    SettingsFragment settingsFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +39,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
+        mainFragment = new MainFragment();
+        mapFragment = new MapFragment();
+        settingsFragment = new SettingsFragment();
+        profileFragment = new ProfileFragment();
+
+        Fragment fragment = mainFragment;
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.FragmentPlace, fragment);
+
+        ft.commit();
+
 
         tvNav = (TextView) findViewById(R.id.navHeader);
         String uid = mAuth.getCurrentUser().getUid();
@@ -49,6 +75,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (toggle.onOptionsItemSelected(item)){
+            System.out.println(item.getItemId());
+
+//            MenuItem items = (MenuItem) item.getSubMenu();
+//
+//            int id = items.getItemId();
+//
+//            //noinspection SimplifiableIfStatement
+//            if (id == R.id.nav_profile) {
+//                System.out.println("prooooofile??");
+//            } else if (id == R.id.nav_settings) {
+//                System.out.println("seeeetting??");
+//            } else if (id == R.id.nav_map) {
+//                System.out.println("maaappp??");
+//            }
+
             return true;
         }
 
